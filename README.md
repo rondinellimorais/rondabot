@@ -1,44 +1,82 @@
-# Rondabot
+# Getting Started
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rondabot`. To experiment with that code, run `bin/console` for an interactive prompt.
+**Rondabot** is a powerful agent that checks for vulnerabilities on the project's premises and submits pull requests with the best version.
 
-TODO: Delete this and the text above, and describe your gem
+The high-level flow looks like this:
 
-## Installation
+<p align="center">
+  <img src="resources/flow.svg" alt="Rondabot architecture">
+</p>
 
-Add this line to your application's Gemfile:
+# Install
+
+To get started let's create our Gemfile:
 
 ```ruby
-gem 'rondabot'
+# Gemfile
+ruby "2.5.5"
+source "https://rubygems.org"
+
+gem "dependabot-omnibus", "~> 0.111.5"
+gem "rondabot", "~> 1.0.0"
 ```
 
-And then execute:
+run:
 
-    $ bundle install
+```bash
+bundle install
+```
 
-Or install it yourself as:
+After installation! To start using Rondabot all you need is a script looks like this:
 
-    $ gem install rondabot
+```ruby
+require "dependabot/omnibus"
+require "rondabot"
 
-## Usage
+core = Rondabot::Core.new(
+  # ...
+  # the parameters. See Parameters table below
+  # ...
+)
 
-TODO: Write usage instructions here
+# start bot
+core.start()
+```
 
-## Development
+## Parameters
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+| Name | Description |
+|:------|:------|
+| **provider** | Source control provider **azure**, **gitlab** or **github** |
+| **organization** | Name of your organization on azure devops |
+| **project** | Name of your project on azure devops |
+| **repository** | Name of your project to using for clone and create pull requests |
+| **credentials** | A user credentials (_username_ and _password_) permission to clone e create pull requests |
+| **feed_id** | Your feed id npm/yarn on azure devops. Go to Azure Devops, your project _Artifacts_ > _Connect to feed_ > _npm_ and then you can find feed id in the url looks like `https://pkgs.dev.azure.com/your organization name/you feed id to be right here/_packaging/npm-packages/npm/registry/` |
+| **github_public_token** | A GitHub access token with read access to public repos. Go to your GitHub account _Settings_ > _Developer settings_ > _Personal access tokens_ and then _Generate new token_ |
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+## Example
 
-## Contributing
+```ruby
+require "dependabot/omnibus"
+require "rondabot"
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rondabot. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/rondabot/blob/master/CODE_OF_CONDUCT.md).
+core = Rondabot::Core.new(
+  provider: "azure",
+  organization: "Akatsuki",
+  project: "Digital%20Channel",
+  repository: "akatsuki-website",
+  credentials: {
+    :username => "Ronda.Bot",
+    :password => "cm9uZGluZWxsaW1vcmFpcwcm9uZGFib3Q"
+  },
+  feed_id: "11db190-e3b1872-1e6e6e-c97f2dd-49253",
+  github_public_token: "11db190e3b18721e6e6ec97f2dd49253"
+)
 
+core.start()
+```
 
-## License
+# License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Rondabot project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/rondabot/blob/master/CODE_OF_CONDUCT.md).
+MIT.
