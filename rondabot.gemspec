@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Rondabot Rondabot is a powerful agent that checks for vulnerabilities on the project's premises and submits pull requests with the best version.}
   spec.homepage      = "https://github.com/rondinellimorais/rondabot"
   spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">=2.3.0")
+  spec.required_ruby_version = Gem::Requirement.new(">=2.5.0")
 
   spec.metadata["homepage_uri"] = spec.homepage
 

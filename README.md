@@ -10,15 +10,18 @@ The high-level flow looks like this:
 
 # Install
 
+> **Ruby version**
+>
+> Rondabot works from ruby version `>=2.5.0`.
+> Make sure you are using version `2.5.0` or higher of ruby.
+
 To get started let's create our Gemfile:
 
 ```ruby
-# Gemfile
-ruby "2.5.5"
 source "https://rubygems.org"
 
+gem "rondabot", "~> 1.0.1"
 gem "dependabot-omnibus", "~> 0.111.5"
-gem "rondabot", "~> 1.0.0"
 ```
 
 run:
@@ -30,7 +33,6 @@ bundle install
 After installation! To start using Rondabot all you need is a script looks like this:
 
 ```ruby
-require "dependabot/omnibus"
 require "rondabot"
 
 core = Rondabot::Core.new(

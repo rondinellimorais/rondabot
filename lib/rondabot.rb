@@ -1,5 +1,5 @@
 module Rondabot
-  VERSION = '0.0.10'
+  VERSION = '1.0.1'
   autoload :Option, File.join(File.dirname(__FILE__), 'module/Option')
   autoload :Core, File.join(File.dirname(__FILE__), 'module/Core')
   autoload :Version, File.join(File.dirname(__FILE__), 'module/Version')
