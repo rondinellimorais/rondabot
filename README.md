@@ -20,7 +20,7 @@ To get started let's create our Gemfile:
 ```ruby
 source "https://rubygems.org"
 
-gem "rondabot", "~> 1.0.1"
+gem "rondabot", "~> 1.0.2"
 gem "dependabot-omnibus", "~> 0.111.5"
 ```
 
