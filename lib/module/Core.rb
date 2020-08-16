@@ -13,8 +13,7 @@ module Rondabot
           # @source_control = Rondabot::GitLab.new(params)
           raise ArgumentError.new("gitlab available soon :)")
         when 'github'
-          # @source_control = Rondabot::GitHub.new(params)
-          raise ArgumentError.new("github available soon :)")
+          @source_control = Rondabot::GitHub.new(params)
         else
           raise ArgumentError.new("'provider' param is missing! The available values are: azure, gitlab or github.")
       end

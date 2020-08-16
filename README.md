@@ -53,11 +53,13 @@ core.start()
 | **organization** | Name of your organization on azure devops |
 | **project** | Name of your project on azure devops |
 | **repository** | Name of your project to using for clone and create pull requests |
-| **credentials** | A user credentials (_username_ and _password_) permission to clone e create pull requests |
+| **access_token** | A git credentials to clone e create pull requests |
 | **feed_id** | Your feed id npm/yarn on azure devops. Go to Azure Devops, your project _Artifacts_ > _Connect to feed_ > _npm_ and then you can find feed id in the url looks like `https://pkgs.dev.azure.com/your organization name/you feed id to be right here/_packaging/npm-packages/npm/registry/` |
-| **github_public_token** | A GitHub access token with read access to public repos. Go to your GitHub account _Settings_ > _Developer settings_ > _Personal access tokens_ and then _Generate new token_ |
+| **github_token** | Allows passing in a GitHub access token so that the API rate limiting is not exceeded. When the repository's visibility is public, the `github_token` must be an access token with read access to the public repositories. When repository visibility is private, the `github_token` must be an access token with full control of private repositories. |
 
-## Example
+## Examples
+
+### Azure Devops
 
 ```ruby
 require "dependabot/omnibus"
@@ -68,12 +70,30 @@ core = Rondabot::Core.new(
   organization: "Akatsuki",
   project: "Digital%20Channel",
   repository: "akatsuki-website",
-  credentials: {
-    :username => "Ronda.Bot",
-    :password => "cm9uZGluZWxsaW1vcmFpcwcm9uZGFib3Q"
-  },
+  access_token: "cm9uZGluZWxsaW1vcmFpcwcm9uZGFib3Q"
   feed_id: "11db190-e3b1872-1e6e6e-c97f2dd-49253",
-  github_public_token: "11db190e3b18721e6e6ec97f2dd49253"
+  github_token: "11db190e3b18721e6e6ec97f2dd49253"
+)
+
+core.start()
+```
+
+### GitHub
+
+> **WARNING**
+>
+> When the repository's visibility is public, the `github_token` must be an access token with read access to the public repositories.
+>
+> When repository visibility is private, the `github_token` must be an access token with full control of private repositories.
+
+```ruby
+require "dependabot/omnibus"
+require "rondabot"
+
+core = Rondabot::Core.new(
+  provider: "github",
+  repository: "rondinellimorais/rondabot",
+  github_token: "11db190e3b18721e6e6ec97f2dd49253"
 )
 
 core.start()

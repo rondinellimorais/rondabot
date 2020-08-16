@@ -8,13 +8,14 @@ core = Rondabot::Core.new(
   organization: ENV["ORGANIZATION"],
   project: ENV["PROJECT"],
   repository: ENV["REPOSITORY"],
-  credentials: {
-    :username => ENV["USERNAME"],
-    :password => ENV["USER_PASSWORD"]
-  },
+  access_token: ENV["USER_PASSWORD"],
   feed_id: ENV["FEED_ID"],
-  github_public_token: ENV["GITHUB_ACCESS_TOKEN"]
+  github_token: ENV["GITHUB_ACCESS_TOKEN"]
 )
 
-# start bot
+# core = Rondabot::Core.new(
+#   provider: 'github',
+#   repository: "rondinellimorais/teste-repo-rond",
+#   github_token: ENV["GITHUB_ACCESS_TOKEN"]
+# )
 core.start()

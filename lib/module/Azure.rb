@@ -2,15 +2,17 @@ module Rondabot
   class Azure < SourceControl
     def initialize params
       super(params)
-      @repository = params[:repository]
       @project = params[:project]
 
-      user_credentials = get_user_credentials(params)
+      if params[:access_token].nil?
+        raise ArgumentError.new("'access_token' param is missing!")
+      end
+
       @credentials << {
         "type" => "git_source",
         "host" => "dev.azure.com",
-        "username" => user_credentials[:username],
-        "password" => user_credentials[:password]
+        "username" => "x-access-token",
+        "password" => params[:access_token]
       }
 
       # get organization
@@ -28,7 +30,7 @@ module Rondabot
       @credentials << {
         "type" => "npm_registry",
         "registry" => "https://pkgs.dev.azure.com/#{@organization}/#{@feed_id}/_packaging/npm-packages/npm/registry/",
-        "token" => "#{@feed_id}:#{user_credentials[:password]}"
+        "token" => "#{@feed_id}:#{params[:access_token]}"
       }
     end
 
@@ -42,6 +44,17 @@ module Rondabot
       end
 
       return "#{@organization}/#{@project}/_git/#{@repository}"
+    end
+
+    def create_pull_request params
+      pull_request = super(params)
+
+      if pull_request&.status == 201
+        content = JSON[pull_request.body]
+        puts "  PR ##{content["pullRequestId"]} submitted"
+      else
+        puts "  PR already exists or an error has occurred"
+      end
     end
   end
 end
