@@ -1,3 +1,7 @@
+## [1.0.3] - 2020-08-17
+
+- Added support to Gitlab provider
+
 ## [1.0.2] - 2020-08-16
 
 - Added support for public and private github repositories
