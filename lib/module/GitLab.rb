@@ -29,6 +29,9 @@ module Rondabot
 
     def create_pull_request params
       pull_request = super(params)
+
+      # fix gitlab PR feedback
+      puts "PR submitted"
     end
   end
 end
