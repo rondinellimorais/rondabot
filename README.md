@@ -41,7 +41,6 @@ core = Rondabot::Core.new(
   # ...
 )
 
-# start bot
 core.start()
 ```
 
@@ -70,7 +69,7 @@ core = Rondabot::Core.new(
   organization: "Akatsuki",
   project: "Digital%20Channel",
   repository: "akatsuki-website",
-  access_token: "cm9uZGluZWxsaW1vcmFpcwcm9uZGFib3Q"
+  access_token: "cm9uZGluZWxsaW1vcmFpcwcm9uZGFib3Q",
   feed_id: "11db190-e3b1872-1e6e6e-c97f2dd-49253",
   github_token: "11db190e3b18721e6e6ec97f2dd49253"
 )
