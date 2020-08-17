@@ -20,7 +20,7 @@ To get started let's create our Gemfile:
 ```ruby
 source "https://rubygems.org"
 
-gem "rondabot", "~> 1.0.2"
+gem "rondabot", "~> 1.0.3"
 gem "dependabot-omnibus", "~> 0.111.5"
 ```
 
@@ -53,7 +53,7 @@ core.start()
 | **organization** | Name of your organization on azure devops |
 | **project** | Name of your project on azure devops |
 | **repository** | Name of your project to using for clone and create pull requests |
-| **access_token** | A git credentials to clone e create pull requests |
+| **access_token** | A git credentials to clone e create pull requests. On **gitlab** is a personal access token generated in your portal |
 | **feed_id** | Your feed id npm/yarn on azure devops. Go to Azure Devops, your project _Artifacts_ > _Connect to feed_ > _npm_ and then you can find feed id in the url looks like `https://pkgs.dev.azure.com/your organization name/you feed id to be right here/_packaging/npm-packages/npm/registry/` |
 | **github_token** | Allows passing in a GitHub access token so that the API rate limiting is not exceeded. When the repository's visibility is public, the `github_token` must be an access token with read access to the public repositories. When repository visibility is private, the `github_token` must be an access token with full control of private repositories. |
 
@@ -93,6 +93,23 @@ require "rondabot"
 core = Rondabot::Core.new(
   provider: "github",
   repository: "rondinellimorais/rondabot",
+  github_token: "11db190e3b18721e6e6ec97f2dd49253"
+)
+
+core.start()
+```
+
+### GitLab
+
+```ruby
+require "dependabot/omnibus"
+require "rondabot"
+
+core = Rondabot::Core.new(
+  provider: "gitlab",
+  hostname: "https://gitlab.devops.akatsuki.com",
+  repository: "akatsuki/software/mobile/myproject",
+  access_token: "F1nZ827g8GsAd1rKx1A8r",
   github_token: "11db190e3b18721e6e6ec97f2dd49253"
 )
 

@@ -10,8 +10,7 @@ module Rondabot
         when 'azure'
           @source_control = Rondabot::Azure.new(params)
         when 'gitlab'
-          # @source_control = Rondabot::GitLab.new(params)
-          raise ArgumentError.new("gitlab available soon :)")
+          @source_control = Rondabot::GitLab.new(params)
         when 'github'
           @source_control = Rondabot::GitHub.new(params)
         else
@@ -23,6 +22,8 @@ module Rondabot
       package_manager = "npm_and_yarn"
       source = Dependabot::Source.new(
         provider: @provider,
+        hostname: @source_control.hostname,
+        api_endpoint: @source_control.api_endpoint,
         repo: @source_control.repository_uri
       )
 

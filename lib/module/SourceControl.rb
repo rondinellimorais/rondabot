@@ -27,7 +27,10 @@ module Rondabot
     end
 
     def repository_uri
-      raise "this method cannot be called directly, do override!"
+      if @repository.nil?
+        raise ArgumentError.new("'repository' param is missing!")
+      end
+      return @repository
     end
 
     def clone source
@@ -49,6 +52,14 @@ module Rondabot
       )
 
       return pr_creator.create
+    end
+
+    def hostname
+      nil
+    end
+
+    def api_endpoint
+      nil
     end
   end
 end

@@ -35,9 +35,7 @@ module Rondabot
     end
 
     def repository_uri
-      if @repository.nil?
-        raise ArgumentError.new("'repository' param is missing!")
-      end
+      super()
 
       if @project.nil?
         raise ArgumentError.new("'project' param is missing!")
